@@ -1,75 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Knockout Tournament</title>
+  <title>BladeBall Tournament Registration</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 100px;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1abc9c, #3498db);
+      color: #fff;
     }
+
+    /* Big centered title */
     h1 {
-      font-size: 48px;
-      color: black;
+      font-family: "Trebuchet MS", sans-serif;
+      font-size: 60px; /* Bigger text */
+      text-align: center;
+      margin: 20px 0;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.6);
+      animation: fadeInDown 1s ease;
     }
-    h2 {
-      font-size: 24px;
-      color: gray;
-    }
-    button {
-      font-size: 20px;
-      margin: 10px;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
+
     #nameInput {
-      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+      animation: fadeInUp 1s ease;
+    }
+
+    label {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    input {
+      font-size: 22px;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 15px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    button {
+      font-size: 22px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      border: none;
+      background: #e74c3c;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #c0392b;
+      box-shadow: 0 0 15px rgba(231,76,60,0.7);
+    }
+
+    #message {
+      margin-top: 30px;
+      font-weight: bold;
+      font-size: 34px;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.6s ease;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    }
+
+    #message.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <h1>Welcome the Knockout Tournament</h1>
-  <h2>Will you join?</h2>
-  
-  <div id="choices">
-    <button onclick="joinYes()">Yes</button>
-    <button onclick="joinNo()">No</button>
-  </div>
-  
-  <div id="nameInput" style="display:none;">
-    <p>Enter your name:</p>
+  <!-- Big centered title -->
+  <h1>BladeBall Tournament Registration</h1>
+
+  <div id="nameInput">
+    <label for="playerName">Enter your name:</label>
     <input type="text" id="playerName" />
-    <button onclick="saveName()">Submit</button>
+    <button onclick="saveName()">Register</button>
   </div>
-  
+
   <div id="message"></div>
-  
+
   <script>
-    function joinYes() {
-      document.getElementById('choices').style.display = 'none';
-      document.getElementById('nameInput').style.display = 'block';
-    }
-    
-    function joinNo() {
-      document.getElementById('choices').style.display = 'none';
-      document.getElementById('message').innerText = "Ok, maybe next time!";
-    }
-    
     function saveName() {
       const name = document.getElementById('playerName').value.trim();
       if (name) {
-        // Save to localStorage
-        let players = JSON.parse(localStorage.getItem('players')) || [];
-        players.push(name);
-        localStorage.setItem('players', JSON.stringify(players));
-        
-        document.getElementById('nameInput').style.display = 'none';
-        document.getElementById('message').innerText = "Thanks for joining, " + name + "!";
+        localStorage.setItem("playerName", name);
+        const msg = document.getElementById('message');
+        msg.innerText = "Thanks for joining BladeBall, " + name + "!";
+        msg.classList.add("show");
       } else {
         alert("Please enter a name.");
       }
     }
   </script>
+<p style="margin-top:15px; font-size:18px; font-weight:bold; animation: fadeInUp 1s ease;">
+    NEXUS Entertainment
+  </p>
+</div>
+
 </body>
 </html>
